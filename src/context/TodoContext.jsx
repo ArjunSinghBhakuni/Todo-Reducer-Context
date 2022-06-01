@@ -1,32 +1,50 @@
-import { createContext, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
-export const TodoContext = createContext();
+import { createContext, useReducer } from "react";
+ import todoReducer from "./todoReducer";
+ // import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from "./todoActions";
 
-export const TodoProvider = ({children})=>{
- const [todo,setTodo] = useState("");
-
+ export const TodoContext = createContext();
  
+ export const TodoProvider = ({children})=>{
+ 
+  const intialState ={
+   todos:[], // {id: '123', text: 'Some text', complete: false}
+  }
 
- const [todoList,setTodoList] = useState([]);
- const handleChange =()=>{
-//console.log(todo) 
-setTodoList([...todoList,{
-id:  uuidv4(),
-value: todo}])
- }
- const deleteTodo =(id)=>{
- console.log(id  )
-  let deletee = todoList.filter((el) =>
-  (
-    
   
-   el.id!==id)
-  )
-  setTodoList(deletee)
- }
+  const [state, dispatch] = useReducer(todoReducer, intialState);
+ 
+ 
+   // Add todo
+   const addTodo = (todo) => {
+    dispatch({
+      type: "ADD_TODO",
+      payload: todo,
+    });
+  };
+    // Toggle a todo
+    const toggleTodo = (todoID) => {
+     dispatch({
+       type: "TOGGLE_TODO",
+       payload: todoID,
+     });
+   };
+     // Delete a todo
+  const deleteTodo = (todoID) => {
+   dispatch({
+     type: "DELETE_TODO",
+     payload: todoID,
+   });
+ };
+
 
  return(
 
-  <TodoContext.Provider value={{todo,setTodo,handleChange,todoList,setTodoList,deleteTodo}}>{children}</TodoContext.Provider>
+  <TodoContext.Provider value={{ 
+   todos: state.todos,
+   addTodo,
+   toggleTodo,
+   deleteTodo,
+
+  }}>{children}</TodoContext.Provider>
  )
 }

@@ -4,19 +4,21 @@ import { Todo } from './Todo'
 
 
 export const TodoList = () => {
- const {todoList,deleteTodo} = useContext(TodoContext)
- // console.log(todoList)
+ const { todos, toggleTodo, deleteTodo } = useContext(TodoContext);
  
  
   return (
     <div>TodoList
     
-      {todoList.map((el,i)=>(
-
-       <Todo key={el.id} todo ={el}   deleteTodo={deleteTodo}/>
-      )
-
-       )}
+    {todos.map((todo) => (
+          <Todo
+            key={todo.id}
+            text={todo.text}
+            complete={todo.complete}
+            clickToToggle={() => toggleTodo(todo.id)}
+            clickToDelete={() => deleteTodo(todo.id)}
+          />
+        ))}
      
     </div>
   );

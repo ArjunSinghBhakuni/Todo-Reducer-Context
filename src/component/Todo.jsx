@@ -1,11 +1,22 @@
 import React from 'react'
 
-export const Todo = ({todo,deleteTodo,id}) => {
+export const Todo = ({ text, clickToToggle, clickToDelete, complete }) => {
   return (
-    <div>  
-     {todo.value} <button onClick={()=>deleteTodo(todo.id)}>remove</button>
-    
-
-    </div>
+   <div >
+   <span
+     
+     style={{ color: complete ? "green" : "red" }}
+   >
+     {text}
+   </span>
+   <div>
+     <button   onClick={clickToToggle}>
+       TOGGLE
+     </button>
+     <button   onClick={clickToDelete}>
+       DELETE
+     </button>
+   </div>
+ </div>
   )
 }
