@@ -13,10 +13,11 @@ export const TodoList = () => {
     {todos.map((todo) => (
           <Todo
             key={todo.id}
+            id={todo.id}
             text={todo.text}
             complete={todo.complete}
             clickToToggle={() => toggleTodo(todo.id)}
-            clickToDelete={() => deleteTodo(todo.id)}
+            deleteTodo={deleteTodo}
           />
         ))}
      

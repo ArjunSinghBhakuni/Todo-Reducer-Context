@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Todo = ({ text, clickToToggle, clickToDelete, complete }) => {
+export const Todo = ({ text, clickToToggle,id, deleteTodo, complete }) => {
   return (
    <div >
    <span
@@ -13,7 +13,7 @@ export const Todo = ({ text, clickToToggle, clickToDelete, complete }) => {
      <button   onClick={clickToToggle}>
        TOGGLE
      </button>
-     <button   onClick={clickToDelete}>
+     <button   onClick={() => deleteTodo( id)}>
        DELETE
      </button>
    </div>
